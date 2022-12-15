@@ -16,20 +16,23 @@
 #'
 #' @examples
 #' qsagesmetadata("ID")
-
+#'
 qsagesmetadata <- function(qterm, gt_table = FALSE,
-                           searchfields = c("variablefieldname",
-                                            "fieldlabel",
-                                            "choicescalculationsorsliderlabel",
-                                            "fieldnote",
-                                            "variablefieldname_3_99",
-                                            "choicescalculationssliderlabels"),
+                           searchfields = c(
+                             "variablefieldname",
+                             "fieldlabel",
+                             "choicescalculationsorsliderlabel",
+                             "fieldnote",
+                             "variablefieldname_3_99",
+                             "choicescalculationssliderlabels"
+                           ),
                            codebook_location = "https://quantsci.s3.amazonaws.com/Work/SAGES/SAGES_metadata.csv") {
-
   codebook <- readr::read_csv(codebook_location, show_col_types = FALSE)
   queried_codebook <- codebook %>%
-    dplyr::filter_at(.vars = searchfields,
-              .vars_predicate = dplyr::any_vars(stringr::str_detect(. , qterm)))
+    dplyr::filter_at(
+      .vars = searchfields,
+      .vars_predicate = dplyr::any_vars(stringr::str_detect(., qterm))
+    )
 
   queried_codebook <- queried_codebook %>%
     dplyr::select(c("variablefieldname", "formname", "sectionheader", "fieldlabel", "var2char", "variablefieldname_3_99"))
@@ -40,5 +43,3 @@ qsagesmetadata <- function(qterm, gt_table = FALSE,
 
   return(queried_codebook)
 }
-
-
