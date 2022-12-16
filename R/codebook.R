@@ -34,6 +34,7 @@ qsagesmetadata <- function(qterm, gt_table = FALSE,
       .vars_predicate = dplyr::any_vars(stringr::str_detect(., qterm))
     )
 
+
   queried_codebook <- queried_codebook %>%
     dplyr::select(c("variablefieldname", "formname", "sectionheader", "fieldlabel", "var2char", "variablefieldname_3_99"))
 
